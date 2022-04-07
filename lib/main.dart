@@ -1,9 +1,19 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:block_downloader/styles/theme.dart';
 import 'package:block_downloader/widgets/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
+
+  doWhenWindowReady(() {
+    const initialSize = Size(600, 450);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.title = 'Block Downloader';
+    appWindow.show();
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +27,11 @@ class MyApp extends StatelessWidget {
       theme: createTheme(Brightness.light),
       darkTheme: createTheme(Brightness.dark),
       themeMode: ThemeMode.dark,
-      home: const Home(),
+      home: MoveWindow(
+        child: WindowTitleBarBox(
+          child: const Home(),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,3 +1,4 @@
+import 'package:block_downloader/styles/theme.dart';
 import 'package:block_downloader/widgets/home.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Block Downloader',
-      theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      theme: createTheme(Brightness.light),
+      darkTheme: createTheme(Brightness.dark),
       themeMode: ThemeMode.dark,
       home: const Home(),
       debugShowCheckedModeBanner: false,

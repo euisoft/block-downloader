@@ -1,3 +1,4 @@
+import 'package:block_downloader/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -5,6 +6,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(
+        children: const [Header()],
+      ),
+    );
   }
 }

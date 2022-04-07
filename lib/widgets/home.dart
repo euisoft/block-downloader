@@ -1,3 +1,5 @@
+import 'package:block_downloader/styles/colors.dart';
+import 'package:block_downloader/styles/theme.dart';
 import 'package:block_downloader/widgets/header.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +9,15 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: const [Header()],
+      backgroundColor: grey,
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: spacing(4)),
+        child: Column(
+          children: const [
+            Header(),
+            Divider(),
+          ],
+        ),
       ),
     );
   }

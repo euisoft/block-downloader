@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:block_downloader/styles/theme.dart';
 import 'package:block_downloader/widgets/home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Block Downloader',
       theme: createTheme(Brightness.light),
       darkTheme: createTheme(Brightness.dark),

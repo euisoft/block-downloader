@@ -13,9 +13,9 @@ class Home extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: spacing(4)),
         child: Column(
-          children: const [
+          children: [
             Header(),
-            Divider(),
+            const Divider(),
           ],
         ),
       ),

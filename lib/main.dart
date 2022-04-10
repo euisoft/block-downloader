@@ -3,9 +3,10 @@ import 'package:block_downloader/styles/theme.dart';
 import 'package:block_downloader/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 
   doWhenWindowReady(() {
     const initialSize = Size(600, 450);

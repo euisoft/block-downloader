@@ -38,6 +38,7 @@ dependencies:
   youtube_explode_dart: ^1.10.10+2
   get: ^4.6.1
   reactive_forms: ^11.0.1
+  hooks_riverpod: ^1.0.3
   
 dev_dependencies:
   flutter_test:

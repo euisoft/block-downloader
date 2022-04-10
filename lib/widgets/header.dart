@@ -1,11 +1,9 @@
 import 'package:block_downloader/models/youtube_item.dart';
-import 'package:block_downloader/services/youtube.dart';
 import 'package:block_downloader/states/youtube.dart';
 import 'package:block_downloader/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class Header extends ConsumerStatefulWidget {
   const Header({Key? key}) : super(key: key);
@@ -28,12 +26,7 @@ class HeaderState extends ConsumerState<Header> {
     AbstractControl control = formGroup.control('url');
 
     if (control.valid) {
-      try {
-        Video video = await yt.videos.get(control.value);
-        youtube.add(YoutubeItemModel(video: video));
-      } catch (error) {
-        control.setErrors({'invalidUrl': true});
-      }
+      youtube.add(YoutubeItemModel(url: control.value));
     }
   }
 

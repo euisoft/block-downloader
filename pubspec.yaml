@@ -39,7 +39,8 @@ dependencies:
   get: ^4.6.1
   reactive_forms: ^11.0.1
   hooks_riverpod: ^1.0.3
-  
+  flutter_hooks: ^0.18.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

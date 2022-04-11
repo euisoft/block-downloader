@@ -33,7 +33,6 @@ class HeaderState extends ConsumerState<Header> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: grey,
       padding: const EdgeInsets.all(16),
       child: ReactiveForm(
         formGroup: formGroup,
@@ -45,15 +44,13 @@ class HeaderState extends ConsumerState<Header> {
           },
           onSubmitted: onSubmitted,
           textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             filled: true,
             isDense: true,
             hintText: 'Youtube Link',
-            prefixIcon: const Icon(Icons.add),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(8),
-            ),
+            prefixIcon: Icon(Icons.add),
+            border: OutlineInputBorder(borderSide: BorderSide.none),
+            fillColor: componentBackground,
           ),
         ),
       ),

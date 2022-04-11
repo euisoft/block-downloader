@@ -1,5 +1,6 @@
 import 'package:block_downloader/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const defaultSpacing = 8.0;
 
@@ -10,8 +11,10 @@ ThemeData createTheme(Brightness brightness) {
 
   return currentThemeData.copyWith(
     colorScheme: currentThemeData.colorScheme.copyWith(
-      primary: red,
-      secondary: red,
+      primary: primary,
+      secondary: primary,
     ),
+    scaffoldBackgroundColor: background,
+    textTheme: GoogleFonts.interTextTheme(currentThemeData.textTheme),
   );
 }

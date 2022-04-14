@@ -1,6 +1,7 @@
 import 'package:block_downloader/models/youtube_item.dart';
 import 'package:block_downloader/states/youtube.dart';
 import 'package:block_downloader/styles/colors.dart';
+import 'package:block_downloader/styles/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -27,13 +28,17 @@ class HeaderState extends ConsumerState<Header> {
 
     if (control.valid) {
       youtube.add(YoutubeItemModel(url: control.value));
+      control.reset(removeFocus: true);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: spacing(2),
+        vertical: spacing(3),
+      ),
       child: ReactiveForm(
         formGroup: formGroup,
         child: ReactiveTextField(

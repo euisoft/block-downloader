@@ -22,13 +22,13 @@ class YoutubeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: youtubeService.getData(item.url),
-      builder: (context, AsyncSnapshot<YoutubeData> value) {
+      builder: (context, AsyncSnapshot<YoutubeDataModel> value) {
         if (value.connectionState == ConnectionState.waiting) {
           return const Loading();
         }
 
         if (value.hasData) {
-          YoutubeData data = value.data!;
+          YoutubeDataModel data = value.data!;
           Video video = data.video;
           StreamManifest streamManifest = data.streamManifest;
 

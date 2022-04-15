@@ -6,10 +6,12 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class YoutubeQualitySelector extends StatelessWidget {
   final StreamManifest streamManifest;
+  final ValueChanged<StreamInfo> onSelected;
 
   const YoutubeQualitySelector({
     Key? key,
     required this.streamManifest,
+    required this.onSelected,
   }) : super(key: key);
 
   @override
@@ -28,15 +30,24 @@ class YoutubeQualitySelector extends StatelessWidget {
       children: [
         StickyHeader(
           header: const StickyHeaderTitle(title: 'Video'),
-          content: StickyHeaderContent(qualities: videoSortByVideoQuality),
+          content: StickyHeaderContent(
+            streamInfos: videoSortByVideoQuality,
+            onSelected: onSelected,
+          ),
         ),
         StickyHeader(
           header: const StickyHeaderTitle(title: 'Audio Only'),
-          content: StickyHeaderContent(qualities: audioOnlySortByBitrate),
+          content: StickyHeaderContent(
+            streamInfos: audioOnlySortByBitrate,
+            onSelected: onSelected,
+          ),
         ),
         StickyHeader(
           header: const StickyHeaderTitle(title: 'Video Only'),
-          content: StickyHeaderContent(qualities: videoOnlySortByQuality),
+          content: StickyHeaderContent(
+            streamInfos: videoOnlySortByQuality,
+            onSelected: onSelected,
+          ),
         ),
       ],
     );

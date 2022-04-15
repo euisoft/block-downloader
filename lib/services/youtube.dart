@@ -4,12 +4,12 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 YoutubeExplode yt = YoutubeExplode();
 
 class YoutubeService {
-  Future<YoutubeData> getData(String url) async {
+  Future<YoutubeDataModel> getData(String url) async {
     Video video = await yt.videos.get(url);
     StreamManifest streamManifest =
         await yt.videos.streamsClient.getManifest(video.id);
 
-    return YoutubeData(
+    return YoutubeDataModel(
       video: video,
       streamManifest: streamManifest,
     );

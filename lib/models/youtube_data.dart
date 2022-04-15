@@ -1,10 +1,10 @@
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-class YoutubeData {
+class YoutubeDataModel {
   final Video video;
   final StreamManifest streamManifest;
 
-  YoutubeData({
+  YoutubeDataModel({
     required this.video,
     required this.streamManifest,
   });

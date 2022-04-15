@@ -1,5 +1,5 @@
-import 'package:block_downloader/styles/colors.dart';
-import 'package:block_downloader/styles/theme.dart';
+import 'package:block_downloader/colors.dart';
+import 'package:block_downloader/theme.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
@@ -16,7 +16,10 @@ class Loading extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(spacing(0.5)),
         child: Shimmer(
-          child: Container(height: 64, color: background),
+          child: Container(
+            height: spacing(8),
+            color: background,
+          ),
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:block_downloader/styles/theme.dart';
+import 'package:block_downloader/theme.dart';
 import 'package:block_downloader/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 
   doWhenWindowReady(() {
-    const initialSize = Size(600, 450);
+    const initialSize = Size(600, 600);
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;
@@ -29,11 +29,7 @@ class MyApp extends StatelessWidget {
       theme: createTheme(Brightness.light),
       darkTheme: createTheme(Brightness.dark),
       themeMode: ThemeMode.dark,
-      home: MoveWindow(
-        child: WindowTitleBarBox(
-          child: const Home(),
-        ),
-      ),
+      home: MoveWindow(child: const Home()),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:block_downloader/models/youtube_item.dart';
 import 'package:block_downloader/states/youtube.dart';
-import 'package:block_downloader/styles/colors.dart';
-import 'package:block_downloader/styles/theme.dart';
+import 'package:block_downloader/colors.dart';
+import 'package:block_downloader/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -52,7 +52,7 @@ class HeaderState extends ConsumerState<Header> {
           decoration: const InputDecoration(
             filled: true,
             isDense: true,
-            hintText: 'Youtube Link',
+            hintText: 'Youtube link',
             prefixIcon: Icon(Icons.add),
             border: OutlineInputBorder(borderSide: BorderSide.none),
             fillColor: componentBackground,

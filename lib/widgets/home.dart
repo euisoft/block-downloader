@@ -1,4 +1,4 @@
-import 'package:block_downloader/styles/theme.dart';
+import 'package:block_downloader/theme.dart';
 import 'package:block_downloader/widgets/header.dart';
 import 'package:block_downloader/widgets/list_youtube_item.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:block_downloader/styles/colors.dart';
+import 'package:block_downloader/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

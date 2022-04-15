@@ -42,7 +42,10 @@ dependencies:
   flutter_hooks: ^0.18.3
   google_fonts: ^2.3.1
   shimmer_animation: ^2.1.0+1
-
+  popover: ^0.2.6+3
+  horizontal_data_table: ^3.6.1+1
+  sticky_headers: ^0.2.0
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

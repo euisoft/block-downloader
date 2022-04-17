@@ -44,7 +44,10 @@ class YoutubeItem extends StatelessWidget {
               video.author,
               style: Get.theme.textTheme.caption,
             ),
-            trailing: YoutubeDownloadButton(streamManifest: streamManifest),
+            trailing: YoutubeDownloadButton(
+              video: video,
+              streamManifest: streamManifest,
+            ),
           );
         }
 

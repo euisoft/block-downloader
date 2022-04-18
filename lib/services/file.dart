@@ -36,6 +36,13 @@ class FileService {
     return await mapWithDownloadFolder(temporarySavePath);
   }
 
+  Future<String> getSavePath(String title, String extension) async {
+    String titleWithoutInvalidChars = removeInvalidChars(title);
+    String savePath = '$titleWithoutInvalidChars.$extension';
+
+    return await mapWithDownloadFolder(savePath);
+  }
+
   String removeInvalidChars(String value) {
     return value.replaceAll(invalidChars, '');
   }

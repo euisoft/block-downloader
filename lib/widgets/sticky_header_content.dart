@@ -26,6 +26,7 @@ class StickyHeaderContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(streamInfo.qualityLabel),
+                    Text(streamInfo.codec.subtype),
                     Text(streamInfo.bitrate.toString()),
                     Text(streamInfo.size.toString()),
                   ],

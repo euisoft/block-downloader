@@ -39,23 +39,30 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
       IOSink sink = file.openWrite();
 
       stream.listen(
-        (bytes) {
-          onAddedData(bytes, sink, streamInfo);
-        },
+        (bytes) => onAddedData(bytes, sink, streamInfo),
         onError: (error) {},
-        onDone: () async {
-          await sink.flush();
-          await sink.close();
-
-          setState(() {
-            downloadedBytes = 0;
-            percent = 0;
-            downloadStatus = DownloadStatus.success;
-          });
-        },
+        onDone: () => onDone(sink, streamInfo, file),
         cancelOnError: true,
       );
     }
+  }
+
+  void onDone(IOSink sink, StreamInfo streamInfo, File file) async {
+    await sink.flush();
+    await sink.close();
+
+    String savePath = await fileService.getSavePath(
+      widget.video.title,
+      streamInfo.codec.subtype,
+    );
+
+    await file.rename(savePath);
+
+    setState(() {
+      downloadedBytes = 0;
+      percent = 0;
+      downloadStatus = DownloadStatus.success;
+    });
   }
 
   void onAddedData(List<int> bytes, IOSink sink, StreamInfo streamInfo) {
@@ -72,7 +79,7 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
     showPopover(
       context: context,
       backgroundColor: background,
-      width: spacing(50),
+      width: spacing(60),
       bodyBuilder: (BuildContext context) {
         return YoutubeQualitySelector(
           streamManifest: widget.streamManifest,

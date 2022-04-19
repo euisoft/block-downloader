@@ -19,6 +19,7 @@ class CircularPercent extends StatelessWidget {
         lineWidth: spacing(0.5),
         radius: spacing(3),
         percent: percent,
+        backgroundColor: Colors.white,
         progressColor: primary,
       ),
     );

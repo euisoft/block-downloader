@@ -16,8 +16,7 @@ class YoutubeQualitySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<VideoStreamInfo> videoSortByVideoQuality =
-        streamManifest.video.sortByVideoQuality();
+    List<VideoStreamInfo> muxedSortByVideoQuality = streamManifest.muxed;
 
     List<AudioOnlyStreamInfo> audioOnlySortByBitrate =
         streamManifest.audioOnly.sortByBitrate();
@@ -31,7 +30,7 @@ class YoutubeQualitySelector extends StatelessWidget {
         StickyHeader(
           header: const StickyHeaderTitle(title: 'Video'),
           content: StickyHeaderContent(
-            streamInfos: videoSortByVideoQuality,
+            streamInfos: muxedSortByVideoQuality,
             onSelected: onSelected,
           ),
         ),

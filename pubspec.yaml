@@ -46,6 +46,7 @@ dependencies:
   horizontal_data_table: ^3.6.1+1
   sticky_headers: ^0.2.0
   path_provider: ^2.0.9
+  percent_indicator: ^3.4.0
     
 dev_dependencies:
   flutter_test:

@@ -5,8 +5,10 @@ import 'package:block_downloader/services/file.dart';
 import 'package:block_downloader/services/youtube.dart';
 import 'package:block_downloader/theme.dart';
 import 'package:block_downloader/types/download.dart';
+import 'package:block_downloader/widgets/circular_percent.dart';
 import 'package:block_downloader/widgets/youtube_quality_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -25,11 +27,13 @@ class YoutubeDownloadButton extends StatefulWidget {
 }
 
 class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
-  DownloadStatus downloadStatus = DownloadStatus.idle;
-  num percent = 0;
+  double percent = 0;
   num downloadedBytes = 0;
+  DownloadStatus downloadStatus = DownloadStatus.idle;
 
   void onSelected(StreamInfo streamInfo) async {
+    Get.back();
+
     if (await fileService.isDownloadFolderExists) {
       Stream stream = yt.videos.streamsClient.get(streamInfo);
 
@@ -70,7 +74,7 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
     setState(() {
       downloadedBytes += bytes.length;
-      percent = (downloadedBytes / streamInfo.size.totalBytes * 100).floor();
+      percent = (downloadedBytes / streamInfo.size.totalBytes);
       downloadStatus = DownloadStatus.downloading;
     });
   }
@@ -91,6 +95,10 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (downloadStatus == DownloadStatus.downloading) {
+      return CircularPercent(percent: percent);
+    }
+
     return IconButton(
       onPressed: onDownloaded,
       icon: const Icon(Icons.arrow_downward),

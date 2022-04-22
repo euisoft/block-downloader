@@ -11,9 +11,13 @@ class ListYoutubeItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<YoutubeItemModel> items = ref.watch(youtubeProvider);
 
-    return ListView(
+    return ListView.builder(
+      itemCount: items.length,
       shrinkWrap: true,
-      children: items.map((item) => YoutubeItem(item: item)).toList(),
+      itemBuilder: (BuildContext context, int index) {
+        YoutubeItemModel item = items[index];
+        return YoutubeItem(item: item);
+      },
     );
   }
 }

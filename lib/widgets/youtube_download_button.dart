@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:block_downloader/colors.dart';
@@ -5,6 +6,7 @@ import 'package:block_downloader/services/file.dart';
 import 'package:block_downloader/services/youtube.dart';
 import 'package:block_downloader/theme.dart';
 import 'package:block_downloader/types/download.dart';
+import 'package:block_downloader/widgets/action_button.dart';
 import 'package:block_downloader/widgets/circular_percent.dart';
 import 'package:block_downloader/widgets/youtube_quality_selector.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,10 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
   num downloadedBytes = 0;
   DownloadStatus downloadStatus = DownloadStatus.idle;
 
+  late StreamSubscription subscription;
+  late File file;
+  late IOSink sink;
+
   void onSelected(StreamInfo streamInfo) async {
     Get.back();
 
@@ -39,19 +45,46 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
       String tempSavePath =
           await fileService.getTempSavePath(widget.video.title);
-      File file = File(tempSavePath);
-      IOSink sink = file.openWrite();
+      file = File(tempSavePath);
+      sink = file.openWrite();
 
-      stream.listen(
-        (bytes) => onAddedData(bytes, sink, streamInfo),
+      subscription = stream.listen(
+        (bytes) => onAddedData(bytes, streamInfo),
+        onDone: () => onDone(streamInfo),
         onError: (error) {},
-        onDone: () => onDone(sink, streamInfo, file),
         cancelOnError: true,
       );
     }
   }
 
-  void onDone(IOSink sink, StreamInfo streamInfo, File file) async {
+  void onPaused() {
+    setState(() {
+      if (subscription.isPaused) {
+        subscription.resume();
+      } else {
+        subscription.pause();
+      }
+    });
+  }
+
+  void onCanceled() {
+    subscription.cancel();
+    onDeleted();
+  }
+
+  void onDeleted() async {
+    await sink.flush();
+    await sink.close();
+    await file.delete();
+
+    setState(() {
+      downloadedBytes = 0;
+      percent = 0;
+      downloadStatus = DownloadStatus.idle;
+    });
+  }
+
+  void onDone(StreamInfo streamInfo) async {
     await sink.flush();
     await sink.close();
 
@@ -69,7 +102,7 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
     });
   }
 
-  void onAddedData(List<int> bytes, IOSink sink, StreamInfo streamInfo) {
+  void onAddedData(List<int> bytes, StreamInfo streamInfo) {
     sink.add(bytes);
 
     setState(() {
@@ -96,12 +129,22 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
   @override
   Widget build(BuildContext context) {
     if (downloadStatus == DownloadStatus.downloading) {
-      return CircularPercent(percent: percent);
+      return Tooltip(
+        message: 'Click: Pause / Double Click: Cancel',
+        child: ActionButton(
+          onTap: onPaused,
+          onDoubleTap: onCanceled,
+          child: CircularPercent(
+            percent: percent,
+            isPaused: subscription.isPaused,
+          ),
+        ),
+      );
     }
 
-    return IconButton(
-      onPressed: onDownloaded,
-      icon: const Icon(Icons.arrow_downward),
+    return ActionButton(
+      onTap: onDownloaded,
+      child: const Icon(Icons.arrow_downward),
     );
   }
 }

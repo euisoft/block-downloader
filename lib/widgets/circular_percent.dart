@@ -5,23 +5,22 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 class CircularPercent extends StatelessWidget {
   final double percent;
+  final bool isPaused;
 
   const CircularPercent({
     Key? key,
     required this.percent,
+    required this.isPaused,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(spacing()),
-      child: CircularPercentIndicator(
-        lineWidth: spacing(0.5),
-        radius: spacing(3),
-        percent: percent,
-        backgroundColor: Colors.white,
-        progressColor: primary,
-      ),
+    return CircularPercentIndicator(
+      lineWidth: spacing(0.5),
+      radius: spacing(3),
+      percent: percent,
+      backgroundColor: Colors.white,
+      progressColor: isPaused ? Colors.redAccent : primary,
     );
   }
 }

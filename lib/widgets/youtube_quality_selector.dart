@@ -16,7 +16,8 @@ class YoutubeQualitySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<VideoStreamInfo> muxedSortByVideoQuality = streamManifest.muxed;
+    List<VideoStreamInfo> muxedSortByVideoQuality =
+        streamManifest.muxed.sortByVideoQuality();
 
     List<AudioOnlyStreamInfo> audioOnlySortByBitrate =
         streamManifest.audioOnly.sortByBitrate();

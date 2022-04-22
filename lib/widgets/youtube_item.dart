@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-class YoutubeItem extends StatelessWidget {
+class YoutubeItem extends StatefulWidget {
   final YoutubeItemModel item;
 
   const YoutubeItem({
@@ -16,12 +16,25 @@ class YoutubeItem extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
-  void onDownloaded() {}
+  @override
+  State<YoutubeItem> createState() => YoutubeItemState();
+}
+
+class YoutubeItemState extends State<YoutubeItem> {
+  Future<YoutubeDataModel>? youtubeFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      youtubeFuture = youtubeService.getData(widget.item.url);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: youtubeService.getData(item.url),
+      future: youtubeFuture,
       builder: (context, AsyncSnapshot<YoutubeDataModel> value) {
         if (value.connectionState == ConnectionState.waiting) {
           return const Loading();

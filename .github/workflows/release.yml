@@ -25,11 +25,11 @@ jobs:
         with:
           type: 'zip'
           filename: blockdownloader-${{ github.sha }}-macos.zip
-          directory: $MACOS_APP_RELEASE_PATH
+          directory: ${{ env.MACOS_APP_RELEASE_PATH }}
       - name: macOS Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: $MACOS_APP_RELEASE_PATH/BlockDownloader-${{ github.sha }}-macos.zip
+          files: ${{ env.MACOS_APP_RELEASE_PATH }}/BlockDownloader-${{ github.sha }}-macos.zip

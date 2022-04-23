@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     env:
       MACOS_APP_RELEASE_PATH: build/macos/Build/Products/Release
-      MACOS_APP_NAME: "Block Downloader.app"
+      MACOS_APP_NAME: Block Downloader.app
       
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
       - name: Archive Release
         uses: papeloto/action-zip@v1
         with:
-          files: ${{ env.MACOS_APP_RELEASE_PATH }}/${{ env.MACOS_APP_NAME }}
+          files: ${{ env.MACOS_APP_RELEASE_PATH }}/"${{ env.MACOS_APP_NAME }}"
           dest: ${{ env.MACOS_APP_RELEASE_PATH }}/BlockDownloader-${{ github.sha }}-macos.zip
       - name: macOS Release
         uses: softprops/action-gh-release@v1

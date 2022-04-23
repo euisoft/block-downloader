@@ -5,6 +5,8 @@ on: push
 jobs:
   build-and-release-macos:
     runs-on: macos-latest
+    env:
+      MACOS_APP_RELEASE_PATH: build/macos/Build/Products/Release
 
     steps:
       - uses: actions/checkout@v3
@@ -14,8 +16,6 @@ jobs:
           flutter-version: '2.10.4'
       - name: Install project dependencies
         run: flutter pub get
-      - name: Generate intermediates
-        run: flutter pub run build_runner build --delete-conflicting-outputs
       - name: Enable macOS build
         run: flutter config --enable-macos-desktop
       - name: Build artifacts
@@ -24,12 +24,12 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          filename: BlockDownloader-${{github.ref_name}}-macos.zip
-          directory: build/macos/Build/Products/Release
+          filename: blockdownloader-${{ github.sha }}-macos.zip
+          directory: $MACOS_APP_RELEASE_PATH
       - name: macOS Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/macos/Build/Products/Release/BlockDownloader-${{github.ref_name}}-macos.zip
+          files: $MACOS_APP_RELEASE_PATH/BlockDownloader-${{ github.sha }}-macos.zip

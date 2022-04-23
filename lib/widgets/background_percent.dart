@@ -18,7 +18,7 @@ class BackgroundPercent extends StatelessWidget {
       width: Get.width * percent,
       decoration: BoxDecoration(
         color: primary,
-        borderRadius: BorderRadius.circular(spacing(0.5)),
+        borderRadius: createBorderRadius(),
       ),
     );
   }

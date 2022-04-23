@@ -62,7 +62,12 @@ class YoutubeItemState extends State<YoutubeItem> {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Container(color: componentBackground.withOpacity(0.5)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: createBorderRadius(),
+                      color: componentBackground.withOpacity(0.5),
+                    ),
+                  ),
                 ),
                 BackgroundPercent(percent: percent),
                 Container(
@@ -70,20 +75,25 @@ class YoutubeItemState extends State<YoutubeItem> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            video.title,
-                            maxLines: 1,
-                            style: Get.theme.textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            video.author,
-                            style: Get.theme.textTheme.caption,
-                          )
-                        ],
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              video.title,
+                              maxLines: 1,
+                              style: Get.theme.textTheme.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: spacing(0.5)),
+                              child: Text(
+                                video.author,
+                                style: Get.theme.textTheme.caption,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       DownloadButton(
                         video: video,

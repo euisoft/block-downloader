@@ -14,7 +14,7 @@ class Loading extends StatelessWidget {
         horizontal: spacing(2),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(spacing(0.5)),
+        borderRadius: createBorderRadius(),
         child: Shimmer(
           child: Container(
             height: spacing(9),

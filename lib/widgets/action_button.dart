@@ -1,3 +1,4 @@
+import 'package:block_downloader/theme.dart';
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
@@ -14,10 +15,18 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkResponse(
-      onTap: onTap,
-      onDoubleTap: onDoubleTap,
-      child: child,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        borderRadius: BorderRadius.circular(spacing(2.5)),
+        child: Ink(
+          width: spacing(5),
+          height: spacing(5),
+          child: child,
+        ),
+      ),
     );
   }
 }

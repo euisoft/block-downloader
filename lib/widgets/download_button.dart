@@ -7,35 +7,45 @@ import 'package:block_downloader/services/youtube.dart';
 import 'package:block_downloader/theme.dart';
 import 'package:block_downloader/types/download.dart';
 import 'package:block_downloader/widgets/action_button.dart';
-import 'package:block_downloader/widgets/circular_percent.dart';
+import 'package:block_downloader/widgets/download_tooltip.dart';
 import 'package:block_downloader/widgets/youtube_quality_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:popover/popover.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-class YoutubeDownloadButton extends StatefulWidget {
+class DownloadButton extends StatefulWidget {
   final Video video;
   final StreamManifest streamManifest;
+  final ValueChanged<double> onProcessed;
 
-  const YoutubeDownloadButton({
+  const DownloadButton({
     Key? key,
     required this.streamManifest,
     required this.video,
+    required this.onProcessed,
   }) : super(key: key);
 
   @override
-  YoutubeDownloadButtonState createState() => YoutubeDownloadButtonState();
+  DownloadButtonState createState() => DownloadButtonState();
 }
 
-class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
-  double percent = 0;
+class DownloadButtonState extends State<DownloadButton> {
   num downloadedBytes = 0;
   DownloadStatus downloadStatus = DownloadStatus.idle;
 
   late StreamSubscription subscription;
   late File file;
   late IOSink sink;
+
+  Widget onIcon() {
+    if (subscription.isPaused) {
+      return const Icon(Icons.play_arrow_rounded);
+    }
+
+    return const CircularProgressIndicator.adaptive();
+  }
 
   void onSelected(StreamInfo streamInfo) async {
     Get.back();
@@ -79,7 +89,6 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
     setState(() {
       downloadedBytes = 0;
-      percent = 0;
       downloadStatus = DownloadStatus.idle;
     });
   }
@@ -97,8 +106,8 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
     setState(() {
       downloadedBytes = 0;
-      percent = 0;
       downloadStatus = DownloadStatus.success;
+      widget.onProcessed(0);
     });
   }
 
@@ -107,8 +116,8 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
 
     setState(() {
       downloadedBytes += bytes.length;
-      percent = (downloadedBytes / streamInfo.size.totalBytes);
       downloadStatus = DownloadStatus.downloading;
+      widget.onProcessed(downloadedBytes / streamInfo.size.totalBytes);
     });
   }
 
@@ -129,15 +138,12 @@ class YoutubeDownloadButtonState extends State<YoutubeDownloadButton> {
   @override
   Widget build(BuildContext context) {
     if (downloadStatus == DownloadStatus.downloading) {
-      return Tooltip(
-        message: 'Click: Pause / Double Click: Cancel',
+      return JustTheTooltip(
+        content: const DownloadTooltip(),
         child: ActionButton(
           onTap: onPaused,
           onDoubleTap: onCanceled,
-          child: CircularPercent(
-            percent: percent,
-            isPaused: subscription.isPaused,
-          ),
+          child: onIcon(),
         ),
       );
     }

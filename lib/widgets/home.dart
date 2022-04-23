@@ -12,11 +12,10 @@ class Home extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: spacing(4)),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: const [
             Header(),
             Divider(),
-            ListYoutubeItem(),
+            Flexible(child: ListYoutubeItem()),
           ],
         ),
       ),

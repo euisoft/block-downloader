@@ -16,6 +16,7 @@ class ListYoutubeItem extends ConsumerWidget {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         YoutubeItemModel item = items[index];
+
         return YoutubeItem(item: item);
       },
     );

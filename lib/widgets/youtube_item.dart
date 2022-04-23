@@ -1,9 +1,11 @@
+import 'package:block_downloader/colors.dart';
 import 'package:block_downloader/models/youtube_data.dart';
 import 'package:block_downloader/models/youtube_item.dart';
 import 'package:block_downloader/services/youtube.dart';
 import 'package:block_downloader/theme.dart';
+import 'package:block_downloader/widgets/background_percent.dart';
+import 'package:block_downloader/widgets/download_button.dart';
 import 'package:block_downloader/widgets/loading.dart';
-import 'package:block_downloader/widgets/youtube_download_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -22,6 +24,13 @@ class YoutubeItem extends StatefulWidget {
 
 class YoutubeItemState extends State<YoutubeItem> {
   Future<YoutubeDataModel>? youtubeFuture;
+  double percent = 0;
+
+  void onProcessed(double percent) {
+    setState(() {
+      this.percent = percent;
+    });
+  }
 
   @override
   void initState() {
@@ -45,21 +54,46 @@ class YoutubeItemState extends State<YoutubeItem> {
           Video video = data.video;
           StreamManifest streamManifest = data.streamManifest;
 
-          return ListTile(
-            title: Padding(
-              padding: EdgeInsets.only(bottom: spacing()),
-              child: Text(
-                video.title,
-                style: Get.theme.textTheme.bodyText1,
-              ),
+          return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: spacing(2),
+              vertical: spacing(),
             ),
-            subtitle: Text(
-              video.author,
-              style: Get.theme.textTheme.caption,
-            ),
-            trailing: YoutubeDownloadButton(
-              video: video,
-              streamManifest: streamManifest,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(color: componentBackground.withOpacity(0.5)),
+                ),
+                BackgroundPercent(percent: percent),
+                Container(
+                  padding: EdgeInsets.all(spacing(2)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            video.title,
+                            maxLines: 1,
+                            style: Get.theme.textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            video.author,
+                            style: Get.theme.textTheme.caption,
+                          )
+                        ],
+                      ),
+                      DownloadButton(
+                        video: video,
+                        streamManifest: streamManifest,
+                        onProcessed: onProcessed,
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           );
         }

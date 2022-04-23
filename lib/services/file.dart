@@ -31,14 +31,16 @@ class FileService {
 
   Future<String> getTempSavePath(String title) async {
     String titleWithoutInvalidChars = removeInvalidChars(title);
-    String temporarySavePath = 'Unconfirmed $titleWithoutInvalidChars.bd';
+    String temporarySavePath =
+        'Unconfirmed $titleWithoutInvalidChars - ${DateTime.now().millisecondsSinceEpoch}.bd';
 
     return await mapWithDownloadFolder(temporarySavePath);
   }
 
   Future<String> getSavePath(String title, String extension) async {
     String titleWithoutInvalidChars = removeInvalidChars(title);
-    String savePath = '$titleWithoutInvalidChars.$extension';
+    String savePath =
+        '$titleWithoutInvalidChars - ${DateTime.now().millisecondsSinceEpoch}.$extension';
 
     return await mapWithDownloadFolder(savePath);
   }

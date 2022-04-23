@@ -17,7 +17,7 @@ class Loading extends StatelessWidget {
         borderRadius: BorderRadius.circular(spacing(0.5)),
         child: Shimmer(
           child: Container(
-            height: spacing(8),
+            height: spacing(9),
             color: background,
           ),
         ),

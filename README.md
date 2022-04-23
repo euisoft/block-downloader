@@ -2,6 +2,8 @@
 
 Download Youtube video, and audio
 
+<img src='https://raw.githubusercontent.com/eui-official/block-downloader/main/screenshot.png' />
+
 ## Roadmap
 - [x] Download video and audio
 - [ ] Merge video and audio

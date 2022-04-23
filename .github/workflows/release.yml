@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     env:
       MACOS_APP_RELEASE_PATH: build/macos/Build/Products/Release
-      MACOS_APP_NAME: Block Downloader.app
+      MACOS_APP_NAME: "Block Downloader.app"
       
     steps:
       - uses: actions/checkout@v3

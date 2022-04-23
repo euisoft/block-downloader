@@ -13,7 +13,7 @@ void main() {
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;
-    appWindow.title = 'Block Downloader';
+    appWindow.title = 'BlockDownloader';
     appWindow.show();
   });
 }
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Block Downloader',
+      title: 'BlockDownloader',
       theme: createTheme(Brightness.light),
       darkTheme: createTheme(Brightness.dark),
       themeMode: ThemeMode.dark,

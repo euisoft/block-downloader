@@ -6,6 +6,9 @@ const defaultSpacing = 8.0;
 
 double spacing([double times = 1]) => times * defaultSpacing;
 
+BorderRadius createBorderRadius([double times = 0.5]) =>
+    BorderRadius.circular(spacing(0.5));
+
 ThemeData createTheme(Brightness brightness) {
   ThemeData currentThemeData = ThemeData(brightness: brightness);
 

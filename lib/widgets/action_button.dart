@@ -20,7 +20,7 @@ class ActionButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         onDoubleTap: onDoubleTap,
-        borderRadius: BorderRadius.circular(spacing(2.5)),
+        borderRadius: createBorderRadius(2.5),
         child: Ink(
           width: spacing(5),
           height: spacing(5),

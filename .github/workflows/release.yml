@@ -34,5 +34,5 @@ jobs:
         uses: actions/upload-artifact@v3
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: ${{ MACOS_APP_NAME }}
+          name: ${{ env.MACOS_APP_NAME }}
           files: ${{ env.MACOS_APP_RELEASE_PATH }}/${{ env.MACOS_APP_NAME }}.zip
